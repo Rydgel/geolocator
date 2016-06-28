@@ -2,7 +2,9 @@
 #define GEOLOCATOR_COUNTRY_H
 
 #include <string>
+#include "../lib/json.hpp"
 
+using json = nlohmann::json;
 using namespace std;
 
 
@@ -21,7 +23,7 @@ public:
     string m_regionWb;
 
     Country() {};
-    string toJson();
+    json toJson();
     ~Country() {};
 };
 
