@@ -3,7 +3,7 @@ project(geolocator)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Werror -O3")
 
-set(SOURCE_FILES src/main.cpp lib/json.hpp src/country.cpp src/country.h src/country_shape.cpp src/country_shape.h src/tools.cpp src/tools.h)
+set(SOURCE_FILES src/main.cpp lib/json.hpp lib/optional.hpp src/country.cpp src/country.h src/country_shape.cpp src/country_shape.h src/tools.cpp src/tools.h)
 
 add_executable(geolocator ${SOURCE_FILES})
 

@@ -39,6 +39,8 @@ optional<Country> CountryShape::get_country_with_coord(double latitude, double l
     OGRFeature::DestroyFeature(feature);
     optional<Country> oC = c;
 
+    poDataset->ReleaseResultSet(layer);
+
     return oC;
 }
 
