@@ -3,7 +3,10 @@
 
 #include <ogr_api.h>
 #include <ogrsf_frmts.h>
+#include <experimental/optional>
 #include "country.h"
+
+using namespace std::experimental;
 
 
 class CountryShape
@@ -14,7 +17,7 @@ private:
 
 public:
     CountryShape();
-    Country getCountryWithCoord(double latitude, double longitude);
+    optional<Country> getCountryWithCoord(double latitude, double longitude);
     ~CountryShape();
 };
 

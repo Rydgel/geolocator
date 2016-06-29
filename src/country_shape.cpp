@@ -4,6 +4,7 @@
 #include "tools.h"
 
 using namespace std;
+using namespace std::experimental;
 
 CountryShape::CountryShape()
 {
@@ -16,7 +17,7 @@ CountryShape::CountryShape()
     }
 }
 
-Country CountryShape::getCountryWithCoord(double latitude, double longitude)
+optional<Country> CountryShape::getCountryWithCoord(double latitude, double longitude)
 {
     const string point = tools::coordToPoint(latitude, longitude);
     ostringstream sqlStream;
@@ -29,27 +30,15 @@ Country CountryShape::getCountryWithCoord(double latitude, double longitude)
     // just in case
     layer->ResetReading();
 
-    Country c = Country();
+    OGRFeature *feature = layer->GetNextFeature();
 
-    for (OGRFeature *feature = layer->GetNextFeature(); feature != nullptr;
-         feature = layer->GetNextFeature()) {
+    if (feature == nullptr) { return nullopt; }
 
-        c.set = true;
-        c.m_name = feature->GetFieldAsString(0);
-        c.m_nameLong = feature->GetFieldAsString(1);
-        c.m_formalEn = feature->GetFieldAsString(2);
-        c.m_wbA2 = feature->GetFieldAsString(3);
-        c.m_wbA3 = feature->GetFieldAsString(4);
-        c.m_continent = feature->GetFieldAsString(5);
-        c.m_regionUn = feature->GetFieldAsString(6);
-        c.m_subregion = feature->GetFieldAsString(7);
-        c.m_regionWb = feature->GetFieldAsString(8);
+    Country c = Country(feature);
+    OGRFeature::DestroyFeature(feature);
+    optional<Country> oC = c;
 
-        OGRFeature::DestroyFeature(feature);
-    }
-
-
-    return c;
+    return oC;
 }
 
 CountryShape::~CountryShape()
