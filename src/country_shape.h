@@ -17,7 +17,7 @@ private:
 
 public:
     CountryShape();
-    optional<Country> getCountryWithCoord(double latitude, double longitude);
+    optional<Country> get_country_with_coord(double latitude, double longitude);
     ~CountryShape();
 };
 

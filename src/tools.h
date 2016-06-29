@@ -9,7 +9,7 @@ using namespace std;
 class tools
 {
 public:
-    static string coordToPoint(double latitude, double longitude);
+    static string coord_to_point(double latitude, double longitude);
 };
 
 

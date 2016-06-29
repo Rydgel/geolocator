@@ -18,9 +18,9 @@ CountryShape::CountryShape()
     }
 }
 
-optional<Country> CountryShape::getCountryWithCoord(double latitude, double longitude)
+optional<Country> CountryShape::get_country_with_coord(double latitude, double longitude)
 {
-    const string point = tools::coordToPoint(latitude, longitude);
+    const string point = tools::coord_to_point(latitude, longitude);
     ostringstream sqlStream;
     sqlStream << "SELECT name, name_long, formal_en, wb_a2, wb_a3, continent,"
               << "region_un, subregion, region_wb "

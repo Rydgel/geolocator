@@ -13,17 +13,17 @@ class Country
 {
 public:
     string m_name;
-    string m_nameLong;
-    string m_formalEn;
-    string m_wbA2;
-    string m_wbA3;
+    string m_name_long;
+    string m_formal_en;
+    string m_wb_a2;
+    string m_wb_a3;
     string m_continent;
-    string m_regionUn;
+    string m_region_un;
     string m_subregion;
-    string m_regionWb;
+    string m_region_wb;
 
     Country(OGRFeature *feature);
-    json toJson();
+    json to_json();
     ~Country() {};
 };
 
