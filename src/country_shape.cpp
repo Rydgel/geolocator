@@ -6,6 +6,7 @@
 using namespace std;
 using namespace std::experimental;
 
+
 CountryShape::CountryShape()
 {
     const char* filename = "resources/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp";
