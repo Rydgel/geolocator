@@ -14,17 +14,31 @@ Country::Country(OGRFeature *feature)
     m_region_wb = feature->GetFieldAsString(8);
 }
 
-json Country::to_json() {
-    return {
-            { "name", m_name },
-            { "name_long", m_name_long },
-            { "formal_en", m_formal_en },
-            { "wb_a2", m_wb_a2 },
-            { "wb_a3", m_wb_a3 },
-            { "continent", m_continent },
-            { "region_un", m_region_un },
-            { "subregion", m_subregion },
-            { "region_wb", m_region_wb }
-    };
+string Country::to_json() {
+    StringBuffer s;
+    Writer<StringBuffer> writer(s);
+
+    writer.StartObject();
+    writer.Key("name");
+    writer.String(m_name.c_str());
+    writer.Key("name_long");
+    writer.String(m_name_long.c_str());
+    writer.Key("formal_en");
+    writer.String(m_formal_en.c_str());
+    writer.Key("wb_a2");
+    writer.String(m_wb_a2.c_str());
+    writer.Key("wb_a3");
+    writer.String(m_wb_a3.c_str());
+    writer.Key("continent");
+    writer.String(m_continent.c_str());
+    writer.Key("region_un");
+    writer.String(m_region_un.c_str());
+    writer.Key("subregion");
+    writer.String(m_subregion.c_str());
+    writer.Key("region_wb");
+    writer.String(m_region_wb.c_str());
+    writer.EndObject();
+
+    return s.GetString();
 }
 

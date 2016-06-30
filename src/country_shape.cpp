@@ -7,9 +7,15 @@ using namespace std;
 using namespace std::experimental;
 
 
+std::mutex mtx;
+
+
 CountryShape::CountryShape()
 {
     const char* filename = "resources/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp";
+
+    // todo try a pool of connections to improve scalability
+    // todo since ExecuteSQL is not fucking thread safe (thx gdal)
     poDataset = OGRSFDriverRegistrar::Open(filename, false);
 
     if (poDataset == nullptr) {
@@ -27,7 +33,9 @@ optional<Country> CountryShape::get_country_with_coord(double latitude, double l
               << "FROM ne_10m_admin_0_countries "
               << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
 
+    mtx.lock();
     OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+    mtx.unlock();
     // just in case
     layer->ResetReading();
 

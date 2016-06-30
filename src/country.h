@@ -3,11 +3,11 @@
 
 #include <string>
 #include <ogr_feature.h>
-#include "../lib/json.hpp"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
-using json = nlohmann::json;
 using namespace std;
-
+using namespace rapidjson;
 
 class Country
 {
@@ -23,7 +23,7 @@ public:
     string m_region_wb;
 
     Country(OGRFeature *feature);
-    json to_json();
+    string to_json();
     ~Country() {};
 };
 
