@@ -3,8 +3,8 @@
 
 #include <string>
 #include <ogr_feature.h>
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
+#include "../lib/rapidjson/writer.h"
+#include "../lib/rapidjson/stringbuffer.h"
 
 using namespace std;
 using namespace rapidjson;
