@@ -4,6 +4,7 @@
 #include <ogr_api.h>
 #include <ogrsf_frmts.h>
 #include "region.h"
+#include "woe_data.h"
 #include "../lib/optional.hpp"
 
 using namespace std::experimental;
@@ -16,7 +17,10 @@ private:
 
 public:
     RegionShape();
-    optional<Region> get_region_with_coord(double latitude, double longitude);
+    optional<Region> getRegionWithCoord(double latitude, double longitude);
+    optional<std::string> generateCountryNameByCode(const char* code);
+    optional<std::string> generateRegionNameByCode(const char *code);
+    optional<WoeData> getGeoFromWoeId(const char *woeId);
     ~RegionShape();
 };
 

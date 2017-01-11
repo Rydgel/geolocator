@@ -23,7 +23,7 @@ public:
     string m_region_wb;
 
     Country(OGRFeature *feature);
-    string to_json();
+    string toJson();
     ~Country() {};
 };
 

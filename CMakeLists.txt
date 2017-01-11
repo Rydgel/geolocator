@@ -12,7 +12,7 @@ set(SOURCE_FILES src/main.cpp
         lib/crow_all.h
         src/country.cpp src/country.h
         src/country_shape.cpp src/country_shape.h
-        src/tools.cpp src/tools.h src/region_shape.cpp src/region_shape.h src/region.cpp src/region.h)
+        src/tools.cpp src/tools.h src/region_shape.cpp src/region_shape.h src/region.cpp src/region.h src/woe_data.cpp src/woe_data.h)
 
 add_executable(geolocator ${SOURCE_FILES})
 
@@ -36,6 +36,8 @@ IF (TcMalloc_FOUND)
     include_directories(${TcMalloc_INCLUDE_DIR})
     target_link_libraries (geolocator ${TcMalloc_LIBRARIES})
 endif()
+
+find_package(asio REQUIRED)
 
 file(COPY resources DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}.)
 

@@ -9,7 +9,7 @@ Region::Region(OGRFeature *feature)
     m_woe_id = feature->GetFieldAsString(4);
 }
 
-string Region::to_json()
+string Region::toJson()
 {
     StringBuffer s;
     Writer<StringBuffer> writer(s);

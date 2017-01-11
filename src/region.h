@@ -19,7 +19,7 @@ public:
     string m_woe_id;
 
     Region(OGRFeature *feature);
-    string to_json();
+    string toJson();
     ~Region() {};
 };
 

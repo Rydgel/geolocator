@@ -14,7 +14,7 @@ Country::Country(OGRFeature *feature)
     m_region_wb = feature->GetFieldAsString(8);
 }
 
-string Country::to_json() {
+string Country::toJson() {
     StringBuffer s;
     Writer<StringBuffer> writer(s);
 
