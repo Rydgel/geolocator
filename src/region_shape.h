@@ -19,8 +19,8 @@ public:
     RegionShape();
     optional<Region> getRegionWithCoord(double latitude, double longitude);
     optional<std::string> generateCountryNameByCode(const char* code);
-    optional<std::string> generateRegionNameByCode(const char *code);
-    optional<WoeData> getGeoFromWoeId(const char *woeId);
+    optional<std::string> generateRegionNameByCode(int code);
+    optional<WoeData> getGeoFromWoeId(int woeId);
     ~RegionShape();
 };
 

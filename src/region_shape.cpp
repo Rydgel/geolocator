@@ -24,34 +24,34 @@ RegionShape::RegionShape()
 optional<Region> RegionShape::getRegionWithCoord(double latitude, double longitude)
 {
     const string point = tools::coordToPoint(latitude, longitude);
+
     ostringstream sqlStream;
     sqlStream << "SELECT name, region, iso_a2, objectid_1, woe_id "
               << "FROM ne_10m_admin_1_states_provinces "
               << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
 
     std::lock_guard<std::mutex> lock(mtxRegion);
-    OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
-    // just in case
-    layer->ResetReading();
 
-    OGRFeature *feature = layer->GetNextFeature();
-
-    if (feature == nullptr) { return nullopt; }
-
-    Region r(feature);
-    OGRFeature::DestroyFeature(feature);
-    optional<Region> oR(r);
-
-    poDataset->ReleaseResultSet(layer);
-
-    return oR;
+    try {
+        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+        layer->ResetReading(); // just in case
+        OGRFeature *feature = layer->GetNextFeature();
+        if (feature == nullptr) { return nullopt; }
+        Region r(feature);
+        OGRFeature::DestroyFeature(feature);
+        optional<Region> oR(r);
+        poDataset->ReleaseResultSet(layer);
+        return oR;
+    } catch (...) {
+        return nullopt;
+    }
 }
 
-// todo check if you can make static?
+// todo check if you can make it static?
 optional<std::string> RegionShape::generateCountryNameByCode(const char *code)
 {
     // I'm not sure why, I just took what I found in the PHP code
-    if (strcmp(code, "AU") == 0) {
+    if (strcmp(code, "AU") == 0 || strcmp(code, "au") == 0) {
         return make_optional(string("Australia"));
     }
 
@@ -61,22 +61,22 @@ optional<std::string> RegionShape::generateCountryNameByCode(const char *code)
               << " LIMIT 1";
 
     std::lock_guard<std::mutex> lock(mtxRegion);
-    OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
-    // just in case
-    layer->ResetReading();
 
-    OGRFeature *feature = layer->GetNextFeature();
-
-    if (feature == nullptr) { return nullopt; }
-
-    string countryName = feature->GetFieldAsString(0);
-    OGRFeature::DestroyFeature(feature);
-    poDataset->ReleaseResultSet(layer);
-
-    return make_optional(countryName);
+    try {
+        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+        layer->ResetReading(); // just in case
+        OGRFeature *feature = layer->GetNextFeature();
+        if (feature == nullptr) { return nullopt; }
+        string countryName = feature->GetFieldAsString(0);
+        OGRFeature::DestroyFeature(feature);
+        poDataset->ReleaseResultSet(layer);
+        return make_optional(countryName);
+    } catch (...) {
+        return nullopt;
+    }
 }
 
-optional<std::string> RegionShape::generateRegionNameByCode(const char *code)
+optional<std::string> RegionShape::generateRegionNameByCode(int code)
 {
     ostringstream sqlStream;
     sqlStream << "SELECT admin FROM ne_10m_admin_1_states_provinces WHERE objectid_1=\""
@@ -84,22 +84,22 @@ optional<std::string> RegionShape::generateRegionNameByCode(const char *code)
               << "\" LIMIT 1";
 
     std::lock_guard<std::mutex> lock(mtxRegion);
-    OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
-    // just in case
-    layer->ResetReading();
 
-    OGRFeature *feature = layer->GetNextFeature();
-
-    if (feature == nullptr) { return nullopt; }
-
-    string regionName = feature->GetFieldAsString(0);
-    OGRFeature::DestroyFeature(feature);
-    poDataset->ReleaseResultSet(layer);
-
-    return make_optional(regionName);
+    try {
+        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+        layer->ResetReading(); // just in case
+        OGRFeature *feature = layer->GetNextFeature();
+        if (feature == nullptr) { return nullopt; }
+        string regionName = feature->GetFieldAsString(0);
+        OGRFeature::DestroyFeature(feature);
+        poDataset->ReleaseResultSet(layer);
+        return make_optional(regionName);
+    } catch (...) {
+        return nullopt;
+    }
 }
 
-optional<WoeData> RegionShape::getGeoFromWoeId(const char *woeId)
+optional<WoeData> RegionShape::getGeoFromWoeId(int woeId)
 {
     ostringstream sqlStream;
     sqlStream << "SELECT name, region, iso_a2, objectid_1 "
@@ -108,21 +108,20 @@ optional<WoeData> RegionShape::getGeoFromWoeId(const char *woeId)
               << "\" LIMIT 1";
 
     std::lock_guard<std::mutex> lock(mtxRegion);
-    OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
-    // just in case
-    layer->ResetReading();
 
-    OGRFeature *feature = layer->GetNextFeature();
-
-    if (feature == nullptr) { return nullopt; }
-
-    WoeData w(feature);
-    OGRFeature::DestroyFeature(feature);
-    optional<WoeData> oW(w);
-
-    poDataset->ReleaseResultSet(layer);
-
-    return oW;
+    try {
+        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+        layer->ResetReading(); // just in case
+        OGRFeature *feature = layer->GetNextFeature();
+        if (feature == nullptr) { return nullopt; }
+        WoeData w(feature);
+        OGRFeature::DestroyFeature(feature);
+        optional<WoeData> oW(w);
+        poDataset->ReleaseResultSet(layer);
+        return oW;
+    } catch (...) {
+        return nullopt;
+    }
 }
 
 RegionShape::~RegionShape()

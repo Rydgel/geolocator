@@ -66,10 +66,10 @@ int main(int argc, char **argv)
         res.end();
     });
 
-    CROW_ROUTE(app, "/region/code/<string>")
-    ([&rs](const crow::request &req, crow::response &res, std::string code) {
+    CROW_ROUTE(app, "/region/code/<int>")
+    ([&rs](const crow::request &req, crow::response &res, int code) {
         res.set_header("content-type", "text/plain");
-        if (optional<std::string> r = rs.generateRegionNameByCode(code.c_str())) {
+        if (optional<std::string> r = rs.generateRegionNameByCode(code)) {
             res.code = 200;
             res.write(r.value());
         } else {
@@ -79,10 +79,10 @@ int main(int argc, char **argv)
         res.end();
     });
 
-    CROW_ROUTE(app, "/woedata/<string>")
-    ([&rs](const crow::request &req, crow::response &res, std::string woeId) {
+    CROW_ROUTE(app, "/woedata/<int>")
+    ([&rs](const crow::request &req, crow::response &res, int woeId) {
         res.set_header("content-type", "application/json");
-        if (optional<WoeData> r = rs.getGeoFromWoeId(woeId.c_str())) {
+        if (optional<WoeData> r = rs.getGeoFromWoeId(woeId)) {
             res.code = 200;
             res.write(r.value().toJson());
         } else {
