@@ -1,4 +1,4 @@
-#include "region.h"
+#include "Region.h"
 
 Region::Region(OGRFeature *feature)
 {

@@ -1,4 +1,4 @@
-#include "woe_data.h"
+#include "WoeData.h"
 
 WoeData::WoeData(OGRFeature *feature)
 {

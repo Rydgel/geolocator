@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
-#include "country_shape.h"
-#include "tools.h"
+#include "CountryShape.h"
+#include "Tools.h"
 
 using namespace std;
 using namespace std::experimental;
@@ -31,7 +31,7 @@ optional<Country> CountryShape::getCountryWithCoord(double latitude, double long
               << "FROM ne_10m_admin_0_countries "
               << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
 
-    std::lock_guard<std::mutex> lock(mtxCountry);
+    // std::lock_guard<std::mutex> lock(mtxCountry);
 
     try {
         OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");

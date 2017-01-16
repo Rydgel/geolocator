@@ -1,7 +1,7 @@
-#include "region_shape.h"
+#include "RegionShape.h"
 #include <iostream>
 #include <sstream>
-#include "tools.h"
+#include "Tools.h"
 
 using namespace std;
 using namespace std::experimental;
@@ -30,7 +30,7 @@ optional<Region> RegionShape::getRegionWithCoord(double latitude, double longitu
               << "FROM ne_10m_admin_1_states_provinces "
               << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
 
-    std::lock_guard<std::mutex> lock(mtxRegion);
+    // std::lock_guard<std::mutex> lock(mtxRegion);
 
     try {
         OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
@@ -60,7 +60,7 @@ optional<std::string> RegionShape::generateCountryNameByCode(const char *code)
               << "iso_a2 = \"" << code << "\""
               << " LIMIT 1";
 
-    std::lock_guard<std::mutex> lock(mtxRegion);
+    // std::lock_guard<std::mutex> lock(mtxRegion);
 
     try {
         OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
@@ -83,7 +83,7 @@ optional<std::string> RegionShape::generateRegionNameByCode(int code)
               << code
               << "\" LIMIT 1";
 
-    std::lock_guard<std::mutex> lock(mtxRegion);
+    // std::lock_guard<std::mutex> lock(mtxRegion);
 
     try {
         OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
@@ -107,7 +107,7 @@ optional<WoeData> RegionShape::getGeoFromWoeId(int woeId)
               << woeId
               << "\" LIMIT 1";
 
-    std::lock_guard<std::mutex> lock(mtxRegion);
+    // std::lock_guard<std::mutex> lock(mtxRegion);
 
     try {
         OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");

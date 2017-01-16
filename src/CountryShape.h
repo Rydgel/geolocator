@@ -3,7 +3,7 @@
 
 #include <ogr_api.h>
 #include <ogrsf_frmts.h>
-#include "country.h"
+#include "Country.h"
 #include "../lib/optional.hpp"
 
 using namespace std::experimental;
