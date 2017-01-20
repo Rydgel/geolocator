@@ -8,6 +8,8 @@ yum install gdal
 
 ### for compling under amazon ami
 
+_LD_LIBRARY_PATH_
+
 yum install gdal gdal-devel
 
 cmake -DCMAKE_BUILD_TYPE=Release ..
