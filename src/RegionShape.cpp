@@ -6,8 +6,7 @@
 using namespace std;
 using namespace std::experimental;
 
-std::mutex mtxRegion;
-
+// std::mutex mtxRegion;
 
 RegionShape::RegionShape()
 {

@@ -7,7 +7,7 @@ using namespace std;
 using namespace std::experimental;
 
 
-std::mutex mtxCountry;
+// std::mutex mtxCountry;
 
 CountryShape::CountryShape()
 {
