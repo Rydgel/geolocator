@@ -9,6 +9,7 @@ yum install gdal
 ### for compling under amazon ami
 
 _LD_LIBRARY_PATH_
+-Wl,-R,'$ORIGIN/../lib'
 
 yum install gdal gdal-devel
 
