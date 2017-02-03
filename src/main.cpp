@@ -15,8 +15,14 @@ int main(int argc, char **argv)
     GDALAllRegister();
     OGRRegisterAll();
 
-    // todo make socket location dynamic
-    std::string file("/tmp/test.sock");
+    const char *filePath;
+    if (argv[1] != nullptr) {
+        filePath = argv[1];
+    } else {
+        filePath = "/tmp/geoloc.sock";
+    }
+
+    std::string file(filePath);
 
     struct file_remover {
         file_remover(std::string f): file_(f) { std::remove(f.c_str()); }
@@ -24,12 +30,13 @@ int main(int argc, char **argv)
         std::string file_;
     } remover(file);
 
-    file_remover r(file);
-
-    // Create and run the server.
-    asio::io_service io_service;
-    SocketServer s(io_service, file);
-    io_service.run();
+    {
+        file_remover r(file);
+        // Create and run the server.
+        asio::io_service io_service;
+        SocketServer s(io_service, file);
+        io_service.run();
+    }
 
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,5 @@
 ### Linux
 
-yum groupinstall 'Development Tools'
 yum install –y epel-release
 vim /etc/yum.repos.d/epel.repo
 yum install gdal
@@ -11,6 +10,9 @@ yum install gdal
 _LD_LIBRARY_PATH_
 -Wl,-R,'$ORIGIN/../lib'
 
+yum groupinstall 'Development Tools'
+yum install –y epel-release
+vim /etc/yum.repos.d/epel.repo
 yum install gdal gdal-devel
 
 cmake -DCMAKE_BUILD_TYPE=Release ..
