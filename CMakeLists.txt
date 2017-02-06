@@ -5,7 +5,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 set(RAPIDJSON_USE_SSE2 ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RAPIDJSON_CXX_FLAGS} -std=c++11 -Wall -O3 -pthread")
+SET(CMAKE_INSTALL_RPATH "$ORIGIN/lib:$ORIGIN/")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RAPIDJSON_CXX_FLAGS} -std=c++11 -Wall -O3 -pthread -Wl,-rpath=$ORIGIN/lib")
 
 set(SOURCE_FILES src/main.cpp
         lib/optional.hpp
@@ -23,6 +25,9 @@ set(SOURCE_FILES src/main.cpp
         src/ProtocolMessage.cpp src/ProtocolMessage.h)
 
 add_executable(geolocator ${SOURCE_FILES})
+
+SET_TARGET_PROPERTIES(geolocator
+    PROPERTIES INSTALL_RPATH "$ORIGIN/lib:$ORIGIN/")
 
 find_package(GDAL REQUIRED)
 IF (GDAL_FOUND)
