@@ -29,12 +29,12 @@ optional<Country> CountryShape::getCountryWithCoord(double latitude, double long
     sqlStream << "SELECT name, name_long, formal_en, wb_a2, wb_a3, continent,"
               << "region_un, subregion, region_wb "
               << "FROM ne_10m_admin_0_countries "
-              << "WHERE Intersects(GeomFromText('" << point << "'), geometry)";
+              << "WHERE intersects(GeomFromText('" << point << "'), geometry)";
 
     // std::lock_guard<std::mutex> lock(mtxCountry);
 
     try {
-        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "SQLite");
+        OGRLayer *layer = poDataset->ExecuteSQL(sqlStream.str().c_str(), nullptr, "sqlite");
         layer->ResetReading(); // just in case
         OGRFeature *feature = layer->GetNextFeature();
         if (feature == nullptr) { return nullopt; }

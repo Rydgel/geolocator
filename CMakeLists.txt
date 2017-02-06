@@ -7,6 +7,8 @@ set(RAPIDJSON_USE_SSE2 ON)
 
 SET(CMAKE_INSTALL_RPATH "$ORIGIN/lib:$ORIGIN/")
 
+
+# -Wl,-rpath=$ORIGIN/lib
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RAPIDJSON_CXX_FLAGS} -std=c++11 -Wall -O3 -pthread -Wl,-rpath=$ORIGIN/lib")
 
 set(SOURCE_FILES src/main.cpp
