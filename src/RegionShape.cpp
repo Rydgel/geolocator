@@ -27,7 +27,7 @@ optional<Region> RegionShape::getRegionWithCoord(double latitude, double longitu
     ostringstream sqlStream;
     sqlStream << "SELECT name, region, iso_a2, objectid_1, woe_id "
               << "FROM ne_10m_admin_1_states_provinces "
-              << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
+              << "WHERE Intersects(GeomFromText('" << point << "'), geometry)";
 
     // std::lock_guard<std::mutex> lock(mtxRegion);
 

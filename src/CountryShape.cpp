@@ -29,7 +29,7 @@ optional<Country> CountryShape::getCountryWithCoord(double latitude, double long
     sqlStream << "SELECT name, name_long, formal_en, wb_a2, wb_a3, continent,"
               << "region_un, subregion, region_wb "
               << "FROM ne_10m_admin_0_countries "
-              << "WHERE ST_Intersects(GeomFromText('" << point << "'), geometry)";
+              << "WHERE Intersects(GeomFromText('" << point << "'), geometry)";
 
     // std::lock_guard<std::mutex> lock(mtxCountry);
 
