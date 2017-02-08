@@ -39,7 +39,7 @@ make install
 
 # optional rpath
 
-Just pass `-Wl,-R,'$ORIGIN/../lib'` to gcc.
+Just pass `-Wl,-R,'$ORIGIN/lib'` to gcc.
 
 # packaging
 
