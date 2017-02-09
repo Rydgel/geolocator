@@ -14,11 +14,11 @@ SocketServer::SocketServer(asio::io_service& io_service, const std::string& file
 #pragma ide diagnostic ignored "InfiniteRecursion"
 void SocketServer::doAccept()
 {
-    std::cout << "start accepting connection" << std::endl;
+    // std::cout << "start accepting connection" << std::endl;
     acceptor_.async_accept(socket_, [this](std::error_code ec) {
         if (!ec) {
             currentLimit ++;
-            printf("Current session count: %d\n", currentLimit.load());
+            // printf("Current session count: %d\n", currentLimit.load());
             auto movedSession = std::make_shared<SocketSession>(std::move(socket_), protocol_, currentLimit);
             movedSession->start();
         }

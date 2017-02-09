@@ -72,6 +72,6 @@ void SocketSession::close()
 
 SocketSession::~SocketSession()
 {
-    printf("Session closed \n");
+    // printf("Session closed \n");
     currentLimit_ --;
 }
