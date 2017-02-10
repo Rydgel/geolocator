@@ -8,10 +8,12 @@ Country::Country(OGRFeature *feature)
     m_formal_en = feature->GetFieldAsString(2);
     m_wb_a2 = feature->GetFieldAsString(3);
     m_wb_a3 = feature->GetFieldAsString(4);
-    m_continent = feature->GetFieldAsString(5);
-    m_region_un = feature->GetFieldAsString(6);
-    m_subregion = feature->GetFieldAsString(7);
-    m_region_wb = feature->GetFieldAsString(8);
+    m_iso_a2 = feature->GetFieldAsString(5);
+    m_iso_a3 = feature->GetFieldAsString(6);
+    m_continent = feature->GetFieldAsString(7);
+    m_region_un = feature->GetFieldAsString(8);
+    m_subregion = feature->GetFieldAsString(9);
+    m_region_wb = feature->GetFieldAsString(10);
 }
 
 string Country::toJson() {
@@ -29,6 +31,10 @@ string Country::toJson() {
     writer.String(m_wb_a2.c_str());
     writer.Key("wb_a3");
     writer.String(m_wb_a3.c_str());
+    writer.Key("iso_a2");
+    writer.String(m_iso_a2.c_str());
+    writer.Key("iso_a3");
+    writer.String(m_iso_a3.c_str());
     writer.Key("continent");
     writer.String(m_continent.c_str());
     writer.Key("region_un");

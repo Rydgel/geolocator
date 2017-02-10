@@ -17,6 +17,8 @@ public:
     string m_formal_en;
     string m_wb_a2;
     string m_wb_a3;
+    string m_iso_a2;
+    string m_iso_a3;
     string m_continent;
     string m_region_un;
     string m_subregion;

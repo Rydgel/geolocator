@@ -26,7 +26,7 @@ optional<Country> CountryShape::getCountryWithCoord(double latitude, double long
     const string point = tools::coordToPoint(latitude, longitude);
 
     ostringstream sqlStream;
-    sqlStream << "SELECT name, name_long, formal_en, wb_a2, wb_a3, continent,"
+    sqlStream << "SELECT name, name_long, formal_en, wb_a2, wb_a3, iso_a2, iso_a3, continent,"
               << "region_un, subregion, region_wb "
               << "FROM ne_10m_admin_0_countries "
               << "WHERE intersects(GeomFromText('" << point << "'), geometry)";
